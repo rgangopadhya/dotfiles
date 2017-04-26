@@ -4,7 +4,7 @@ export GOPATH=$HOME/dev/gotest
 export PATH=$PATH:$GOPATH/bin
 
 # add git completion
-source .git-completion.bash
+source ~/.git-completion.bash
 
 # Set CLICOLOR if you want Ansi Colors in iTerm2 
 export CLICOLOR=1
