@@ -1,4 +1,10 @@
 [ -r ~/.bashrc ] && source ~/.bashrc
+# handle go
+export GOPATH=$HOME/dev/gotest
+export PATH=$PATH:$GOPATH/bin
+
+# add git completion
+source .git-completion.bash
 
 # Set CLICOLOR if you want Ansi Colors in iTerm2 
 export CLICOLOR=1
@@ -7,12 +13,39 @@ export CLICOLOR=1
 export TERM=xterm-256color
 
 pathadd() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="${PATH:+"$PATH:"}$1"
-    fi
+	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+		PATH="${PATH:+"$PATH:"}$1"
+	fi
 }
 
 . ~/.nvm/nvm.sh
+
+# git helpers
+
+function clean-local-branches() {
+  git checkout master && git pull && git branch --merged | grep -v "\*" | grep -v master | xargs -n 1 git branch -d
+}
+
+function clean-local-branches-new() {
+  git checkout master17 && git pull && git branch --merged | grep -v "\*" | grep -v master17 | xargs -n 1 git branch -d
+}
+
+# handle pyenv stuff
+if which pyenv > /dev/null; then 
+	eval "$(pyenv init -)";
+fi
+if which pyenv-virtualenv-init > /dev/null; then 
+	eval "$(pyenv virtualenv-init -)";
+fi
+# export PYENV_ROOT=/usr/local/var/pyenv
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+
+# Android stuff
+export ANDROID_HOME="/Users/raja/Library/Android/sdk"
+export ANDROID_SDK_ROOT="/Users/raja/Library/Android/sdk"
+export PATH="$ANDROID_HOME/tools:$PATH"
+export PATH="$ANDROID_HOME/platform-tools:$PATH"
 
 # Reset
 Color_Off='\e[0m'       # Text Reset
@@ -91,4 +124,7 @@ export PATH
 pathadd "/usr/local/bin"
 pathadd "/Applications/Postgres.app/Contents/Versions/9.4/bin"
 source ~/.git-prompt.sh
+source ~/.heroku-account.sh
 PS1="\[$Green\]\t\[$Red\]-\[$Blue\]\u\[$Yellow\]\[$Yellow\]\w\[\033[m\]\[$Purple\]\$(__git_ps1)\[$White\]\$ "
+
+export PATH="$HOME/.yarn/bin:$PATH"
