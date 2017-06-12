@@ -9,19 +9,20 @@ colorscheme solarized
 :imap <S-Space> <Esc>
 :imap jj <Esc>
 
-:set diffexpr=
+set diffexpr=
 
 "highlight search matches
-:set hlsearch
+set hlsearch
 
 "show line numbers
-:set number
+set number
 
 "windows-specific bs - fix backspace
 set backspace=2
 set backspace=indent,eol,start
 
 "make tab set of spaces - insert 2
-:set tabstop=4
+set tabstop=4
+set expandtab
 "same for those inserted for indentation
-:set shiftwidth=4
+set shiftwidth=4
