@@ -1,6 +1,7 @@
 [ -r ~/.bashrc ] && source ~/.bashrc
 # setup RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+source ~/.profile
 # handle go
 export GOPATH=$HOME/dev/gotest
 export PATH=$PATH:$GOPATH/bin
