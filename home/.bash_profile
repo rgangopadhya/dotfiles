@@ -1,10 +1,17 @@
 [ -r ~/.bashrc ] && source ~/.bashrc
 # setup RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-source ~/.profile
+# source ~/.profile
 # handle go
 export GOPATH=$HOME/dev/gotest
 export PATH=$PATH:$GOPATH/bin
+
+# Git Duet
+export GIT_DUET_CO_AUTHORED_BY=1
+
+# chruby
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
 
 # add git completion
 source ~/.git-completion.bash
@@ -21,7 +28,7 @@ pathadd() {
 	fi
 }
 
-. ~/.nvm/nvm.sh
+# . ~/.nvm/nvm.sh
 
 # git helpers
 
@@ -43,6 +50,7 @@ fi
 # export PYENV_ROOT=/usr/local/var/pyenv
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
+export PATH=$PYENV_ROOT/shims:$PATH
 
 # Android stuff
 export ANDROID_HOME="/Users/raja/Library/Android/sdk"
@@ -125,9 +133,39 @@ On_IWhite='\e[0;107m'   # White
 
 export PATH
 pathadd "/usr/local/bin"
-pathadd "/Applications/Postgres.app/Contents/Versions/9.4/bin"
+pathadd "/Applications/Postgres.app/Contents/Versions/10/bin"
 source ~/.git-prompt.sh
 source ~/.heroku-account.sh
 PS1="\[$Green\]\t\[$Red\]-\[$Blue\]\u\[$Yellow\]\[$Yellow\]\w\[\033[m\]\[$Purple\]\$(__git_ps1)\[$White\]\$ "
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# REMIX stuff
+export REMIX_HOME=/Users/raja/dev/remix
+pathadd "$REMIX_HOME/bin"
+pathadd "$REMIX_HOME/mobility-cloister/bin"
+
+# for aws-vault
+export AWS_ASSUME_ROLE_TTL="30m"
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+# Setting PATH for Python 3.6
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+export PATH
+
+. /usr/local/etc/profile.d/z.sh
+
+alias gst="git status"
+alias gc="git commit"
+alias gco="git checkout"
+alias gpull="git pull"
+alias gpush="git p"
+
+# edit bash prompts in vim mode
+set -o vi
+
+export PATH="$HOME/.poetry/bin:$PATH"
+. "$HOME/.cargo/env"
