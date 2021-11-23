@@ -23,13 +23,31 @@
 ;; with a function, you should! If you're not careful they'll make your code
 ;; unreadable and far too "clever", use them when plain functions aren't enough
 ;; or are too awkward to wield for your specific problem.
+(fn sym-tostring [x]
+  `,(tostring x))
 
-{;; This is just a silly example macro.
- ; (infix-example-macro 2 + 3) => compiles to: (+ 2 3) => evaluates to: 5
- :infix-example-macro
- (fn [x op y]
-   `(,op ,x ,y))
+(fn noremap [mode left right ...]
+  (let [mode (sym-tostring mode)
+        opts {}]
+    (var isBuffer false) ; so we don't have to specify not in a buffer
+    ; set that noremap is true
+    (tset opts :noremap true)
+    ; set each option to be true
+    (each [key val (ipairs [...])]
+      ; buffer isn't an option for nvim_set_keymap
+      ; if we see buffer, set flag
+      (if (= val :buffer)
+        (do (set isBuffer true))
+        ; everything else is a valid option
+        (do (tset opts val true))))
+    ; if buffer is set, use a buffer map
+    (if (= isBuffer true)
+      (do
+        `(vim.api.nvim_buf_set_keymap 0 ,mode ,left ,right ,opts))
+      (do
+        `(vim.api.nvim_set_keymap ,mode ,left ,right ,opts)))))
 
+{
  ;; Create an augroup for your autocmds.
  ; (augroup my-group
  ;   (nvim.ex.autocmd ...))
@@ -39,4 +57,16 @@
       (vim.cmd (.. "augroup " ,(tostring name) "\nautocmd!"))
       ,...
       (vim.cmd "augroup END")
-      nil))}
+      nil))
+ 
+ :nnoremap
+ (fn [left right ...]
+   (noremap :n left right ...))
+ 
+ :inoremap
+ (fn [left right ...]
+   (noremap :i left right ...))
+ 
+ :tnoremap
+ (fn [left right ...]
+   (noremap :t left right ...))}

@@ -27,6 +27,7 @@
 (nvim.ex.set :spell)
 (nvim.ex.set :list)
 
+(set nvim.o.grepprg "rg -S --vimgrep")
 
 ;;; Mappings
 
@@ -51,10 +52,28 @@
   :hrsh7th/nvim-compe {}
   :itchyny/lightline.vim {}
   :jiangmiao/auto-pairs {:mod :auto-pairs}
-  :junegunn/fzf {}
+  :junegunn/fzf { :run "./install --all" }
   :junegunn/fzf.vim {}
   :liuchengxu/vim-better-default {:mod :better-default}
   :mbbill/undotree {}
+  :nvim-telescope/telescope.nvim { :requires [:nvim-lua/plenary.nvim :nvim-lua/popup.nvim] :mod :telescope }
+
+  ;; LSP
+  :neovim/nvim-lspconfig {:requires [:kabouzeid/nvim-lspinstall
+                                   :folke/lua-dev.nvim
+                                   :nvim-lua/lsp-status.nvim
+                                   :onsails/lspkind-nvim
+                                   :MunifTanjim/nui.nvim]
+                        :rocks :json-lua
+                        :mod :lsp}
+
+  ;; Completion
+  :hrsh7th/nvim-cmp {:requires [:hrsh7th/cmp-nvim-lsp
+                                :hrsh7th/cmp-buffer
+                                :PaterJason/cmp-conjure
+                                :L3MON4D3/LuaSnip
+                                :saadparwaiz1/cmp_luasnip]
+                     :mod :completion}
   :radenling/vim-dispatch-neovim {}
   :srcery-colors/srcery-vim {:mod :srcery}
   :tami5/compe-conjure {}
@@ -71,4 +90,5 @@
   :tpope/vim-vinegar {}
   :w0rp/ale {:mod :ale}
   :wbthomason/packer.nvim {}
+  :icymind/neosolarized {}
   )
