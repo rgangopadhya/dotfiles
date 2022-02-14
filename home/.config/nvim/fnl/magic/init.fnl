@@ -54,16 +54,18 @@
   :jiangmiao/auto-pairs {:mod :auto-pairs}
   :junegunn/fzf { :run "./install --all" }
   :junegunn/fzf.vim {}
+  :tpope/vim-rhubarb {}
   :liuchengxu/vim-better-default {:mod :better-default}
   :mbbill/undotree {}
-  :nvim-telescope/telescope.nvim { :requires [:nvim-lua/plenary.nvim :nvim-lua/popup.nvim] :mod :telescope }
+  :nvim-telescope/telescope.nvim { :requires [:nvim-lua/plenary.nvim :nvim-lua/popup.nvim :nvim-telescope/telescope-file-browser.nvim] :mod :telescope }
 
   ;; LSP
-  :neovim/nvim-lspconfig {:requires [:kabouzeid/nvim-lspinstall
-                                   :folke/lua-dev.nvim
-                                   :nvim-lua/lsp-status.nvim
-                                   :onsails/lspkind-nvim
-                                   :MunifTanjim/nui.nvim]
+  :neovim/nvim-lspconfig {:requires [:williamboman/nvim-lsp-installer
+                                     :folke/lua-dev.nvim
+                                     :nvim-lua/lsp-status.nvim
+                                     :onsails/lspkind-nvim
+                                     :jose-elias-alvarez/null-ls.nvim
+                                     :MunifTanjim/nui.nvim]
                         :rocks :json-lua
                         :mod :lsp}
 
@@ -72,8 +74,14 @@
                                 :hrsh7th/cmp-buffer
                                 :PaterJason/cmp-conjure
                                 :L3MON4D3/LuaSnip
+                                :rafamadriz/friendly-snippets
                                 :saadparwaiz1/cmp_luasnip]
                      :mod :completion}
+
+  ;; linting/fixing
+  :jose-elias-alvarez/null-ls.nvim {:requires [:nvim-lua/plenary.nvim]
+                                    :mod :diagnostics}
+
   :radenling/vim-dispatch-neovim {}
   :srcery-colors/srcery-vim {:mod :srcery}
   :tami5/compe-conjure {}
@@ -88,7 +96,6 @@
   :tpope/vim-surround {}
   :tpope/vim-unimpaired {}
   :tpope/vim-vinegar {}
-  :w0rp/ale {:mod :ale}
   :wbthomason/packer.nvim {}
   :icymind/neosolarized {}
   )

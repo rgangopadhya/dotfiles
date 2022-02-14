@@ -100,9 +100,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 # chruby
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
@@ -122,6 +119,12 @@ function clean-local-branches() {
   git checkout master && git pull && git branch --merged | grep -v "\*" | grep -v master | xargs -n 1 git branch -d
 }
 
+# PG config
+export PGHOST="localhost"
+eval "$(/usr/local/bin/brew shellenv)"
+export LDFLAGS="-L$HOMEBREW_PREFIX/opt/openssl@1.1/lib"
+export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/openssl@1.1/include"
+
 # handle pyenv stuff
 if which pyenv > /dev/null; then 
 	eval "$(pyenv init -)";
@@ -136,7 +139,6 @@ export PATH=$PYENV_ROOT/shims:$PATH
 
 export PATH
 pathadd "/usr/local/bin"
-pathadd "/Applications/Postgres.app/Contents/Versions/10/bin"
 source ~/.git-prompt.sh
 source ~/.heroku-account.sh
 
@@ -181,3 +183,4 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 export AWS_SDK_LOAD_CONFIG=1
 export PATH="/usr/local/opt/node@14/bin:$PATH"
+export HOMEBREW_NO_AUTO_UPDATE=1

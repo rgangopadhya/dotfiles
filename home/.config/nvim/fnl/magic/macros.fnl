@@ -66,6 +66,20 @@
  :inoremap
  (fn [left right ...]
    (noremap :i left right ...))
+
+ :buf_set_option
+ (fn [bufnr name value]
+   `(vim.api.nvim_buf_set_option bufnr ,name ,value))
+
+ :buf_set_var
+ (fn [bufnr name value]
+   "Sets a buffer-scoped (b:) variable"
+   `(vim.api.nvim_buf_set_var bufnr ,name ,value))
+
+  :viml->fn
+ (fn [name]
+   "Call a fennel function defined in the current module from within viml"
+   `(.. "lua require('" *module-name* "')['" ,(tostring name) "']()"))
  
  :tnoremap
  (fn [left right ...]
