@@ -8,6 +8,8 @@
 (nvim.ex.set "wildmode=full")
 (nvim.ex.set "wildoptions=pum")
 (nvim.ex.set "listchars-=eol:↵")
+(nvim.ex.set :norelativenumber)
+(nvim.ex.set :number)
 
 (nvim.ex.autocmd :BufWinEnter "*" :checktime)
 (nvim.ex.autocmd :WinEnter "*" :checktime)

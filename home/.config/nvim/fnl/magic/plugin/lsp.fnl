@@ -29,10 +29,9 @@
 
   (buf_set_option bufnr :omnifunc :v:lua.vim.lsp.omnifunc)
   (buf_set_var bufnr :lsp_client_name client.name)
+
   (nvim.ex.autocmd :BufWritePre :<buffer> :MyLspFix)
-  (augroup format-on-save 
-    (nvim.ex.autocmd! "*" :<buffer>)
-    (nvim.ex.autocmd :BufWritePre :<buffer> :MyLspFix))
+
   ;; (when (= client.name :eslint)
   ;;   (nvim.ex.autocmd :BufWritePre :<buffer> :EslintFixAll))
 

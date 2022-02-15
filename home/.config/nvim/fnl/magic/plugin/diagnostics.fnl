@@ -5,7 +5,7 @@
    require-macros [magic.macros]})
 
 (vim.diagnostic.config {:underline true
-                        :virtual_text false
+                        :virtual_text true
                         :signs true
                         :update_in_insert true
                         :severity_sort true})
