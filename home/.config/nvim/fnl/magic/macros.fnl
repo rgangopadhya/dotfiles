@@ -76,7 +76,7 @@
    "Sets a buffer-scoped (b:) variable"
    `(vim.api.nvim_buf_set_var bufnr ,name ,value))
 
-  :viml->fn
+ :viml->fn
  (fn [name]
    "Call a fennel function defined in the current module from within viml"
    `(.. "lua require('" *module-name* "')['" ,(tostring name) "']()"))
