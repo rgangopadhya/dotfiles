@@ -1,3 +1,4 @@
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -184,3 +185,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 export AWS_SDK_LOAD_CONFIG=1
 export PATH="/usr/local/opt/node@14/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+# go setup
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
+export GO111MODULE=on
+
+[[ -s "/Users/raja/.gvm/scripts/gvm" ]] && source "/Users/raja/.gvm/scripts/gvm"
+gvm use 1.17 > /dev/null
