@@ -1,5 +1,6 @@
 (module own.plugin.diagnostics
   {autoload {nvim aniseed.nvim
+             a aniseed.core
              null-ls null-ls
              u null-ls.utils}
    require-macros [magic.macros]})
@@ -10,9 +11,19 @@
                         :update_in_insert true
                         :severity_sort true})
 
+(let [command! nvim.ex.command!]
+  (command! :MyLspFix "lua vim.lsp.buf.formatting_sync(nil, 5000)"))
+
+(defn- on-attach-null [client]
+    (nvim.ex.autocmd :BufWritePre :<buffer> :MyLspFix))
+
 (null-ls.setup
   {:sources [null-ls.builtins.code_actions.eslint_d
              null-ls.builtins.diagnostics.eslint_d
+             (null_ls.builtins.formatting.gofmt.with {:cwd project-root :root_dir git-root})
+             (null_ls.builtins.formatting.goimports.with {:cwd project-root :root_dir git-root})
+             (null_ls.builtins.formatting.black.with {:cwd project-root :root_dir git-root :args [:--quiet :--line-lenth :100 :--fast :-]})
+             (null_ls.builtins.formatting.isort.with {:args [:--float-to-top :-l :100 :--skip-gitignore :--order-by-type :--stdout :--profile :black :-]})
              (null-ls.builtins.diagnostics.rubocop.with {:cwd project-root
                                                          :root_dir git-root
                                                          :command :bundle
@@ -28,7 +39,8 @@
                                                                     :ruby
                                                                     :sql
                                                                     :typescript
-                                                                    :typescriptreact]})]})
+                                                                    :typescriptreact]})]
+   :on_attach on-attach-null})
 
 (defn eslint-fix []
   (vim.cmd "silent !npx eslint_d --fix %")

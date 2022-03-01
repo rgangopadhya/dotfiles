@@ -15,9 +15,6 @@
 
 (kind.init)
 
-(let [command! nvim.ex.command!]
-  (command! :MyLspFix "lua vim.lsp.buf.formatting_sync()"))
-
 (defn- on-attach [client bufnr]
   (status.config {:indicator_separator ::
                   :indicator_errors :e
@@ -26,14 +23,12 @@
                   :indicator_info :i})
   (status.register_progress)
   (status.on_attach client)
+  ;; let null-ls handle the formatting
+  (tset client.resolved_capabilities :document_formatting false)
+  (tset client.resolved_capabilities :document_range_formatting false)
 
   (buf_set_option bufnr :omnifunc :v:lua.vim.lsp.omnifunc)
   (buf_set_var bufnr :lsp_client_name client.name)
-
-  (nvim.ex.autocmd :BufWritePre :<buffer> :MyLspFix)
-
-  ;; (when (= client.name :eslint)
-  ;;   (nvim.ex.autocmd :BufWritePre :<buffer> :EslintFixAll))
 
   ;; Mappings
   (nnoremap :K ":lua vim.lsp.buf.hover()<cr>" :buffer :silent)
