@@ -20,9 +20,12 @@
 (null-ls.setup
   {:sources [null-ls.builtins.code_actions.eslint_d
              null-ls.builtins.diagnostics.eslint_d
+             null_ls.builtins.formatting.terraform_fmt
+             null_ls.builtins.formatting.raco_fmt
              (null_ls.builtins.formatting.gofmt.with {:cwd project-root :root_dir git-root})
              (null_ls.builtins.formatting.goimports.with {:cwd project-root :root_dir git-root})
-             (null_ls.builtins.formatting.black.with {:cwd project-root :root_dir git-root :args [:--quiet :--line-lenth :100 :--fast :-]})
+             (null_ls.builtins.formatting.black.with {:cwd project-root :root_dir git-root :args [:--quiet :--line-length :100 :--fast :-]})
+             ;; (null_ls.builtins.formatting.black.with {:cwd project-root :root_dir git-root :args [:--quiet :--line-lenth :100 :--fast :-]})
              (null_ls.builtins.formatting.isort.with {:args [:--dont-float-to-top :-l :100 :--skip-gitignore :--dont-order-by-type :--stdout :--profile :black :-]})
              (null-ls.builtins.diagnostics.rubocop.with {:cwd project-root
                                                          :root_dir git-root

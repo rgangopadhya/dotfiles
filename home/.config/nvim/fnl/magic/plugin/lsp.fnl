@@ -42,14 +42,17 @@
   (nnoremap "[d"   ":lua vim.lsp.diagnostic.goto_prev()<cr>" :buffer :silent)
   (nnoremap "]d"   ":lua vim.lsp.diagnostic.goto_next()<cr>" :buffer :silent))
 
-(def- lsp-settings {:on_attach on-attach
-                    :capabilities (cmp-lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))
-                    :settings {:Lua (a.get-in (lua-dev.setup) [:settings :Lua])}
-                    :init_options {:preferences {:includeCompletionsWithSnippetText true
-                                                 :includeCompletionsForImportStatements true}}})
+(def- base-settings {:on_attach on-attach
+                     :capabilities (cmp-lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))
+                     :init_options {:preferences {:includeCompletionsWithSnippetText true
+                                                  :includeCompletionsForImportStatements true}}})
+
+(def- server-settings {:pylsp {:plugins {:flake8 {:maxLineLength :100}}}
+                       :sumneko_lua {:settings {:Lua (a.get-in (lua-dev.setup) [:settings :Lua])}}})
 
 (installer.on_server_ready
-  (fn [server] (server:setup lsp-settings)))
+  (fn [server]
+    (server:setup (a.merge base-settings (a.get server-settings server.name {})))))
 
 (let [required-servers [:cssls
                         :eslint
@@ -58,6 +61,7 @@
                         :pylsp
                         :solargraph
                         :sumneko_lua
+                        :racket_langserver
                         :terraform-ls
                         :tsserver
                         :vimls]]
