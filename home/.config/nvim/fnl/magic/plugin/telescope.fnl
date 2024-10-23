@@ -3,6 +3,7 @@
   require-macros [magic.macros]})
 
 (telescope.load_extension :file_browser)
+(telescope.load_extension :fzf)
 
 (nnoremap :<leader>ff ":lua require('telescope.builtin').find_files()<cr>")
 (nnoremap :<leader>fg ":lua require('telescope.builtin').live_grep()<cr>")

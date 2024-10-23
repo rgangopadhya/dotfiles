@@ -12,7 +12,7 @@
                         :severity_sort true})
 
 (let [command! nvim.ex.command!]
-  (command! :MyLspFix "lua vim.lsp.buf.formatting_sync(nil, 5000)"))
+  (command! :MyLspFix "lua vim.lsp.buf.format(nil, 5000)"))
 
 (defn- on-attach-null [client]
     (nvim.ex.autocmd :BufWritePre :<buffer> :MyLspFix))
@@ -24,25 +24,14 @@
              null_ls.builtins.formatting.raco_fmt
              (null_ls.builtins.formatting.gofmt.with {:cwd project-root :root_dir git-root})
              (null_ls.builtins.formatting.goimports.with {:cwd project-root :root_dir git-root})
-             (null_ls.builtins.formatting.black.with {:cwd project-root :root_dir git-root :args [:--quiet :--line-length :100 :--fast :-]})
+             (null_ls.builtins.formatting.black.with {:cwd project-root :root_dir git-root :args [:--quiet :--line-length :100 :-t :py311 :--fast :-]})
              ;; (null_ls.builtins.formatting.black.with {:cwd project-root :root_dir git-root :args [:--quiet :--line-lenth :100 :--fast :-]})
              (null_ls.builtins.formatting.isort.with {:args [:--dont-float-to-top :-l :100 :--skip-gitignore :--dont-order-by-type :--stdout :--profile :black :-]})
-             (null-ls.builtins.diagnostics.rubocop.with {:cwd project-root
-                                                         :root_dir git-root
-                                                         :command :bundle
-                                                         :args [:exec :rubocop :-f :json :--stdin :$FILENAME]})
-             (null-ls.builtins.diagnostics.cspell.with {:cwd project-root
-                                                        :root_dir git-root
-                                                        :prefer_local :node_modules/.bin
-                                                        :filetypes [:fennel
-                                                                    :go
-                                                                    :javascript
-                                                                    :json
-                                                                    :markdown
-                                                                    :ruby
-                                                                    :sql
-                                                                    :typescript
-                                                                    :typescriptreact]})]
+             ;; (null-ls.builtins.diagnostics.rubocop.with {:cwd project-root
+             ;;                                             :root_dir git-root
+             ;;                                             :command :bundle
+             ;;                                             :args [:exec :rubocop :-f :json :--stdin :$FILENAME]})
+             ]
    :on_attach on-attach-null})
 
 (defn eslint-fix []
@@ -54,5 +43,5 @@
   (vim.cmd :edit))
 
 (augroup fix-on-save
-  (nvim.ex.autocmd :BufWritePost "*.ts,*.tsx" (viml->fn :eslint-fix))
+  (nvim.ex.autocmd :BufWritePost "*.ts,*.tsx,*.js" (viml->fn :eslint-fix))
   (nvim.ex.autocmd :BufWritePost "*.rb" (viml->fn :rubocop-fix)))

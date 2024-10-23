@@ -43,13 +43,12 @@
   :Olical/aniseed {}
   :Olical/conjure {}
   :PeterRincker/vim-argumentative {}
-  :airblade/vim-gitgutter {}
+  ;; :airblade/vim-gitgutter {}
   :clojure-vim/clojure.vim {}
   :clojure-vim/vim-jack-in {}
   :easymotion/vim-easymotion {}
   :folke/which-key.nvim {}
   :guns/vim-sexp {}
-  :hrsh7th/nvim-compe {}
   :itchyny/lightline.vim {}
   :jiangmiao/auto-pairs {:mod :auto-pairs}
   :junegunn/fzf { :run "./install --all" }
@@ -58,10 +57,11 @@
   :liuchengxu/vim-better-default {:mod :better-default}
   :mbbill/undotree {}
   :nvim-telescope/telescope.nvim { :requires [:nvim-lua/plenary.nvim :nvim-lua/popup.nvim :nvim-telescope/telescope-file-browser.nvim] :mod :telescope }
+  :nvim-telescope/telescope-fzf-native.nvim { :run "make" }
 
   ;; LSP
   :neovim/nvim-lspconfig {:requires [:williamboman/nvim-lsp-installer
-                                     :folke/lua-dev.nvim
+                                     :folke/neodev.nvim
                                      :nvim-lua/lsp-status.nvim
                                      :onsails/lspkind-nvim
                                      :jose-elias-alvarez/null-ls.nvim
@@ -78,13 +78,17 @@
                                 :saadparwaiz1/cmp_luasnip]
                      :mod :completion}
 
+  ;; term
+  :akinsho/toggleterm.nvim {}
+  :stevearc/dressing.nvim {}
+
   ;; linting/fixing
   :jose-elias-alvarez/null-ls.nvim {:requires [:nvim-lua/plenary.nvim]
                                     :mod :diagnostics}
 
   :radenling/vim-dispatch-neovim {}
   :srcery-colors/srcery-vim {:mod :srcery}
-  :tami5/compe-conjure {}
+  :hrsh7th/compe-conjure {}
   :tpope/vim-abolish {}
   :tpope/vim-commentary {}
   :tpope/vim-dispatch {}
@@ -98,4 +102,9 @@
   :tpope/vim-vinegar {}
   :wbthomason/packer.nvim {}
   :icymind/neosolarized {}
-  )
+  :kdheepak/lazygit.nvim {}
+
+  ;; org-mode
+  :nvim-treesitter/nvim-treesitter {}
+  :nvim-orgmode/orgmode {}
+)

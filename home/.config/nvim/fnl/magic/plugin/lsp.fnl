@@ -6,7 +6,7 @@
              installer nvim-lsp-installer
              servers nvim-lsp-installer.servers
              status lsp-status
-             lua-dev lua-dev
+             neodev neodev
              cmp-lsp cmp_nvim_lsp
              kind lspkind
              Input nui.input
@@ -24,8 +24,8 @@
   (status.register_progress)
   (status.on_attach client)
   ;; let null-ls handle the formatting
-  (tset client.resolved_capabilities :document_formatting false)
-  (tset client.resolved_capabilities :document_range_formatting false)
+  (tset client.server_capabilities :document_formatting false)
+  (tset client.server_capabilities :document_range_formatting false)
 
   (buf_set_option bufnr :omnifunc :v:lua.vim.lsp.omnifunc)
   (buf_set_var bufnr :lsp_client_name client.name)
@@ -43,12 +43,12 @@
   (nnoremap "]d"   ":lua vim.lsp.diagnostic.goto_next()<cr>" :buffer :silent))
 
 (def- base-settings {:on_attach on-attach
-                     :capabilities (cmp-lsp.update_capabilities (vim.lsp.protocol.make_client_capabilities))
+                     :capabilities (cmp-lsp.default_capabilities (vim.lsp.protocol.make_client_capabilities))
                      :init_options {:preferences {:includeCompletionsWithSnippetText true
                                                   :includeCompletionsForImportStatements true}}})
 
 (def- server-settings {:pylsp {:plugins {:flake8 {:maxLineLength :100}}}
-                       :sumneko_lua {:settings {:Lua (a.get-in (lua-dev.setup) [:settings :Lua])}}})
+                       :lua_ls {:settings {:Lua (a.get-in (neodev.setup) [:settings :Lua])}}})
 
 (installer.on_server_ready
   (fn [server]
@@ -60,7 +60,8 @@
                         :jsonls
                         :pylsp
                         :solargraph
-                        :sumneko_lua
+                        :lua_ls
+                        :rust_analyzer
                         :racket_langserver
                         :terraform-ls
                         :tsserver

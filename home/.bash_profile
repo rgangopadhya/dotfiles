@@ -135,7 +135,6 @@ export PATH
 pathadd "/usr/local/bin"
 pathadd "/Applications/Postgres.app/Contents/Versions/10/bin"
 source ~/.git-prompt.sh
-source ~/.heroku-account.sh
 PS1="\[$Green\]\t\[$Red\]-\[$Blue\]\u\[$Yellow\]\[$Yellow\]\w\[\033[m\]\[$Purple\]\$(__git_ps1)\[$White\]\$ "
 
 export PATH="$HOME/.yarn/bin:$PATH"

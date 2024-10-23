@@ -1,5 +1,6 @@
 (module magic.plugin.better-default
-  {autoload {nvim aniseed.nvim}})
+  {autoload {nvim aniseed.nvim}
+   require-macros [magic.macros]})
 
 (set nvim.g.vim_better_default_persistent_undo true)
 (nvim.ex.runtime_ "plugin/default.vim")
@@ -19,3 +20,4 @@
 (set nvim.o.undodir (.. (nvim.fn.stdpath "data") "/undo"))
 
 (nvim.ex.set "clipboard-=unnamedplus")
+(nnoremap :<leader>gg ":LazyGit<cr>")
