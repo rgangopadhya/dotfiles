@@ -207,7 +207,7 @@ unset DOCKER_DEFAULT_PLATFORM
 export LOKALISE_API=cd4cd75bbebfc8cd33687ee7ed033505cdb16e66
 export CIRCLECI_TOKEN=90d636eecc94d1ce4a32b03012b84bd17ccc7678
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # M1 fix for Coinlib overrides, from 
 # https://paper.dropbox.com/doc/Remix-monorepo-setup-on-M1-Mac--BzTSILxAQ1iqJcFiD~ApkrmtAg-EP8ixHdDwhBUfDxgxjgfM#:h2=Cbc
