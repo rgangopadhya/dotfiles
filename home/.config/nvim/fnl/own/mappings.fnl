@@ -7,6 +7,7 @@
                 : augroup} :own.macros)
 
 (local {: autoload} (require :nfnl.module))
+(local core (autoload :nfnl.core))
 
 (local t (autoload :telescope.builtin))
 (local error-filter {:severity vim.diagnostic.severity.ERROR})
@@ -37,19 +38,25 @@
                          :silent true
                          : desc}))
 
+(vim.lsp.set_log_level "debug")
+
 (fn on-attach [args]
   (local bufnr args.buf)
   (local client (vim.lsp.get_client_by_id args.data.client_id))
   (vim.api.nvim_buf_set_option 0 :omnifunc :v:lua.vim.lsp.omnifunc)
+  (print (.. "attaching to buffer" bufnr))
+  (each [key value (pairs args)]
+    (print key value))
 
   ;; Mappings
   (buf-map :K #(vim.lsp.buf.hover) "lsp: hover")
   (buf-map :gd #(vim.lsp.buf.definition {:reuse_win true}) "lsp: go to defintion")
   (buf-map :gr #(vim.lsp.buf.references) "lsp: references")
+  (buf-map :<leader>d #(vim.lsp.buf.definition {:reuse_win true}) "lsp: go to defintion")
+  (buf-map :<leader>r #(vim.lsp.buf.references) "lsp: references")
   (buf-map :gi #(vim.lsp.buf.implementation) "lsp: implementation")
   (buf-map :gs #(vim.lsp.buf.signature_help) "lsp: signature")
   (buf-map :gt #(vim.lsp.buf.type_definition) "lsp: type def")
-  (buf-map :gq #(vim.lsp.diagnostic.set_loclist) "lsp: set loclist")
   (buf-map :ga #(vim.lsp.buf.code_action) "lsp: code actions")
   (vmap :gla #(vim.lsp.buf.code_action) {:buffer true
                                                 :desc "lsp: code actions"})
@@ -63,3 +70,23 @@
 (nmap "]d" #(vim.diagnostic.goto_next error-filter) (opts "previous diagnostic"))
 (nmap "[w" #(vim.diagnostic.goto_prev warning-filter) (opts "next warning"))
 (nmap "]w" #(vim.diagnostic.goto_next warning-filter) (opts "previous warning"))
+
+(vim.api.nvim_create_user_command
+  "OpenTmuxNvim"
+  (fn [opts]
+    (let [dir (or (core.get opts "args") ".")
+          cmd (string.format "tmux new-window -c '%s' 'nvim' \\; select-window -t:last" dir)]
+      (vim.fn.system cmd)))
+  {:nargs "?"})
+
+(nmap :<leader>c #(vim.cmd "OpenTmuxNvim /Users/raja/.config/nvim") ( opts "Open neovim config"))
+
+(vim.api.nvim_create_user_command
+  "OpenTmux"
+  (fn [opts]
+    (let [dir (or (core.get opts "args") ".")
+          cmd (string.format "tmux new-window -c '%s' \\; select-window -t:last" dir)]
+      (vim.fn.system cmd)))
+  {:nargs "?"})
+
+(nmap :<leader>cd #(vim.cmd "OpenTmux /Users/raja/.config/nvim") ( opts "Open neovim config directory"))

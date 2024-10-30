@@ -18,3 +18,5 @@
 ; Remove unnamedplus from clipboard
 ; This fails
 ; (vim.opt.clipboard (vim.tbl_filter (fn [item] (not= item "unnamedplus")) vim.opt.clipboard:get))
+
+(set vim.o.completeopt "menuone,noselect,preview")

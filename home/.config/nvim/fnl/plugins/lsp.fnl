@@ -72,10 +72,13 @@
 				:lua_ls
 				:eslint
 				:fennel_language_server
-				:pylsp
+				:ruff
 				:solargraph
 				:rust_analyzer
 	]} :config true})
+ (use :pmizio/typescript-tools.nvim {:dependencies [:neovim/nvim-lspconfig
+                                                    :nvim-lua/plenary.nvim]
+                                     :opts {}})
  (use :neovim/nvim-lspconfig { :dependencies [
 				:williamboman/mason.nvim
 				:williamboman/mason-lspconfig.nvim

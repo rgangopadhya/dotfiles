@@ -6,7 +6,6 @@
 
 ;; This explodes on me. I think there is an issue with order of loading..?
 ;; ((. (require :luasnip.loaders.from_vscode) :lazy_load))
-(set vim.o.completeopt "menuone,noselect,preview")
 
 (fn config [] 
   (local menu-sources {:path     "[path]"
