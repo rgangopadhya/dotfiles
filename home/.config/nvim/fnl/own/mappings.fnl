@@ -38,15 +38,10 @@
                          :silent true
                          : desc}))
 
-(vim.lsp.set_log_level "debug")
-
 (fn on-attach [args]
   (local bufnr args.buf)
   (local client (vim.lsp.get_client_by_id args.data.client_id))
   (vim.api.nvim_buf_set_option 0 :omnifunc :v:lua.vim.lsp.omnifunc)
-  (print (.. "attaching to buffer" bufnr))
-  (each [key value (pairs args)]
-    (print key value))
 
   ;; Mappings
   (buf-map :K #(vim.lsp.buf.hover) "lsp: hover")
@@ -61,9 +56,10 @@
   (vmap :gla #(vim.lsp.buf.code_action) {:buffer true
                                                 :desc "lsp: code actions"})
 
-  (when (= client.name :eslint) (set-eslint-autofix bufnr)))
+  (when (= client.name :eslint) (set-eslint-autofix bufnr))
+  nil)
 
-(augroup :lsp-attach [:LspAttach {:callback on-attach}])
+(augroup :my-lsp-attach [:LspAttach {:callback on-attach}])
 
 ; Diagnostics
 (nmap "[d" #(vim.diagnostic.goto_prev error-filter) (opts "next diagnostic"))

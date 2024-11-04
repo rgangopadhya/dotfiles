@@ -59,8 +59,6 @@
   (ruby-lsps))
 
 [
- ; Gives a hook into LSP client for non-LSP sources
- (use :nvimtools/none-ls.nvim { :dependencies [ :nvim-lua/plenary.nvim ] })
  ; The latest way to add non-LSP sources
  (use :williamboman/mason.nvim { :config mason-config })
  (use :williamboman/mason-lspconfig.nvim { :dependencies [:williamboman/mason.nvim]
@@ -77,8 +75,8 @@
 				:rust_analyzer
 	]} :config true})
  (use :pmizio/typescript-tools.nvim {:dependencies [:neovim/nvim-lspconfig
-                                                    :nvim-lua/plenary.nvim]
-                                     :opts {}})
+                                                  :nvim-lua/plenary.nvim]
+                                    :opts {}})
  (use :neovim/nvim-lspconfig { :dependencies [
 				:williamboman/mason.nvim
 				:williamboman/mason-lspconfig.nvim

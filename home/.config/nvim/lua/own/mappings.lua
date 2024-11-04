@@ -22,15 +22,10 @@ end
 local function buf_map(keymap, callback, desc)
   return vim.keymap.set("n", keymap, callback, {buffer = true, silent = true, desc = desc})
 end
-vim.lsp.set_log_level("debug")
 local function on_attach(args)
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
   vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  print(("attaching to buffer" .. bufnr))
-  for key, value in pairs(args) do
-    print(key, value)
-  end
   local function _2_()
     return vim.lsp.buf.hover()
   end
@@ -72,13 +67,13 @@ local function on_attach(args)
   end
   vim.keymap.set("v", "gla", _11_, {buffer = true, desc = "lsp: code actions"})
   if (client.name == "eslint") then
-    return set_eslint_autofix(bufnr)
+    set_eslint_autofix(bufnr)
   else
-    return nil
   end
+  return nil
 end
 do
-  local group = vim.api.nvim_create_augroup("lsp-attach", {clear = true})
+  local group = vim.api.nvim_create_augroup("my-lsp-attach", {clear = true})
   vim.api.nvim_create_autocmd("LspAttach", {callback = on_attach, group = group})
 end
 local function _13_()

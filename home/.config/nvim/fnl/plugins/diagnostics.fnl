@@ -65,5 +65,6 @@
 
      :on_attach on-attach}))
 
+; Gives a hook into LSP client for non-LSP sources
 (use :nvimtools/none-ls.nvim {:dependencies [:nvim-lua/plenary.nvim]
                               : config})
