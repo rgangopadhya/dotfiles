@@ -1,3 +1,4 @@
 return {
-  { "Olical/nfnl", ft = "fennel" }
+  { "Olical/nfnl", ft = "fennel" },
+  { "Olical/conjure" },
 }

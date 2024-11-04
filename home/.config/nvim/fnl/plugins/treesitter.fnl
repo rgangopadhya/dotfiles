@@ -58,9 +58,11 @@
                   :ensure_installed ensure-installed
                   :table_of_contents {:enable true}}))
 
-[(use :nvim-treesitter/nvim-treesitter-textobjects {:name :nvim-treesitter-textobjects})
+[
+ (use :nvim-treesitter/nvim-treesitter-textobjects {:name :nvim-treesitter-textobjects})
  (use :nvim-treesitter/nvim-treesitter
       {:dependencies [:nvim-treesitter-textobjects]
        :build ::TSUpdate
        :config config})
+ (use :HiPhish/rainbow-delimiters.nvim)
  ]
