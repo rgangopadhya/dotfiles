@@ -4,9 +4,6 @@
 (local ls (autoload :luasnip))
 (local lspkind (autoload :lspkind))
 
-;; This explodes on me. I think there is an issue with order of loading..?
-;; ((. (require :luasnip.loaders.from_vscode) :lazy_load))
-
 (fn config [] 
   (local menu-sources {:path     "[path]"
                     :luasnip  "[snippet]"
@@ -37,6 +34,7 @@
   (ls.config.setup {:history true
                   :update_events "TextChanged,TextChangedI"
                   :enable_autosnippets true})
+  ((. (require :luasnip.loaders.from_vscode) :lazy_load))
 )
 
 [

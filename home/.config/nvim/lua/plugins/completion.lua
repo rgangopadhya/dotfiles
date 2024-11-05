@@ -12,6 +12,7 @@ local function config()
   end
   cmp.setup({mapping = cmp.mapping.preset.insert(cmd_mappings), sources = cmp.config.sources({{name = "luasnip"}, {name = "nvim_lsp"}, {name = "conjure"}, {name = "buffer", keyword_length = 5}}), formatting = {format = lspkind.cmp_format({menu = menu_sources, with_text = false})}, snippet = {expand = _2_}})
   cmp.setup.cmdline({mapping = cmp.mapping.preset.cmdline(cmd_mappings)})
-  return ls.config.setup({history = true, update_events = "TextChanged,TextChangedI", enable_autosnippets = true})
+  ls.config.setup({history = true, update_events = "TextChanged,TextChangedI", enable_autosnippets = true})
+  return require("luasnip.loaders.from_vscode").lazy_load()
 end
 return {{"hrsh7th/nvim-cmp", dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip", "rafamadriz/friendly-snippets"}, event = "InsertEnter", config = config}, {"L3MON4D3/LuaSnip", dependencies = {"rafamadriz/friendly-snippets"}}}
