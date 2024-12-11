@@ -6,21 +6,13 @@ vim.o.wildmode = "full"
 vim.o.wildoptions = "pum"
 vim.o.relativenumber = true
 vim.o.number = true
-local function _1_()
-  return vim.cmd("checktime")
+local function checktime()
+  vim.cmd("checktime")
+  return nil
 end
-vim.api.nvim_create_autocmd("BufWinEnter", {pattern = "*", callback = _1_})
-local function _2_()
-  return vim.cmd("checktime")
-end
-vim.api.nvim_create_autocmd("WinEnter", {pattern = "*", callback = _2_})
-local function _3_()
-  return vim.cmd("checktime")
-end
-vim.api.nvim_create_autocmd("FocusGained", {pattern = "*", callback = _3_})
-local function _4_()
-  return vim.cmd("checktime")
-end
-vim.api.nvim_create_autocmd("CursorHold", {pattern = "*", callback = _4_})
+vim.api.nvim_create_autocmd("BufWinEnter", {pattern = "*", callback = checktime})
+vim.api.nvim_create_autocmd("WinEnter", {pattern = "*", callback = checktime})
+vim.api.nvim_create_autocmd("FocusGained", {pattern = "*", callback = checktime})
+vim.api.nvim_create_autocmd("CursorHold", {pattern = "*", callback = checktime})
 vim.o.completeopt = "menuone,noselect,preview"
 return nil

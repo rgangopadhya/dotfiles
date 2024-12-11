@@ -10,10 +10,14 @@
 (set vim.o.number true)
 
 ; Warn if buffers were changed outside of vim
-(autocmd :BufWinEnter {:pattern "*" :callback #(vim.cmd "checktime")})
-(autocmd :WinEnter {:pattern "*" :callback #(vim.cmd "checktime")})
-(autocmd :FocusGained {:pattern "*" :callback #(vim.cmd "checktime")})
-(autocmd :CursorHold {:pattern "*" :callback #(vim.cmd "checktime")})
+(fn checktime []
+  (vim.cmd "checktime")
+  nil)
+
+(autocmd :BufWinEnter {:pattern "*" :callback checktime})
+(autocmd :WinEnter {:pattern "*" :callback checktime})
+(autocmd :FocusGained {:pattern "*" :callback checktime})
+(autocmd :CursorHold {:pattern "*" :callback checktime})
 
 ; Remove unnamedplus from clipboard
 ; This fails
